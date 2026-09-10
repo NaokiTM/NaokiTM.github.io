@@ -22,12 +22,9 @@ body {
     margin: 0;
 }
 
-
 #main-container {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    align-items: center;
     width: 100%;
     height: 100%;
 }
@@ -37,7 +34,9 @@ body {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
+    flex: 1 1 50%;   /* was missing */
     height: 100%;
+    box-sizing: border-box;
 }
 
 #top-left-container {
@@ -48,11 +47,43 @@ body {
 }
 
 #right-container {
+    flex: 1 1 50%;
     display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     height: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+#book-positioner {
+    width: 850px;
+    height: 530px;
+    flex-shrink: 0;
+    transition: transform 0.5s ease;
+    transform: translateX(-120px); /* shifted left initially */
+}
+
+#book-positioner.shift-right {
+    transform: translateX(0);
+}
+
+#book {
+    width: 100%;
+    height: 100%;
+}
+
+.page {
+    background: white;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+.page.cover {
+    background: #b3261e;
+    color: white;
 }
 
 #title {
@@ -67,12 +98,12 @@ body {
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
 }
 
-#projects {
+/* #projects {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     padding: 50px;
     gap: 50px;
-}
+} */
 
 .project-card-link {
     text-decoration: none;
@@ -106,16 +137,15 @@ body {
 }   
 
 .project-card {
-    aspect-ratio: 1 / 1;
-    border-radius: 50px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-    transition: transform 0.25s ease, box-shadow 0.25s ease, color 0.3s ease;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
-    position: relative;
-    color: black;
-    display: flex;          /* add this */
-    flex-direction: column; /* add this */
 }
+
 /* Background image layer */
 .project-card::before {
     content: '';

@@ -50,60 +50,87 @@
         </div>
 
         <div id="right-container">
-            <!-- Projects -->
-            <div id="projects">
-                <div class="project-card" style="--background-image: url('projectimages/daw.png')">
-                    <div class="project-card-container">
-                        <div class="project-card-title">Synthasonik</div>
-                        <div class="project-card-description-container">
-                            <div class="project-card-description">A DAW web app to fill the position of a web based but still minimalistic workstation, inspired by the interface of logic pro x by apple. Allows importing your own samples and playback of multiple tracks thanks to the audioContext interface. I use svelte stores for global variables and svelte writable for dynamic variables, and styling with TailwindCSS to simplify rapid development of a complex user interface. </div>
+            <div id="book-positioner">
+                <div id="book">
+                        <div class="page cover">
+                            projects (turn corner to open)
                         </div>
-                        <div class="project-card-technologies">
-                            <div class="sveltekit-label">SvelteKit</div>
-                            <div class="tailwind-label">Tailwind</div>
+                        <div class="page">
+
                         </div>
-                    </div>
-                </div>
-                <div class="project-card" style="--background-image: url('projectimages/chess.png')">
-                    <div class="project-card-container">
-                        <div class="project-card-title">knights tour solver</div>
-                        <div class="project-card-description-container">
-                            <div class="project-card-description">A program to visually solve the famous Knights Tour problem, showing possible moves from the knights position and highlighting previous moves. it implements the Warnsdorffs heuristic to look ahead and greedily choose the move with the largest number of possible outgoing moves from it. Pygame provides a simple and customizable user interface, and in the future I plan to add a mode for the user to be able to solve it themselves as well as solving for custom board sizes</div>
-                        </div>
-                        <div class="project-card-technologies">
-                            <div class="python-label">Python</div>
-                            <div class="pygame-label">Pygame</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" style="--background-image: url('projectimages/')">
-                    <div class="project-card-container">
-                        <div class="project-card-title">Linux Dotfiles</div>
-                            <div class="project-card-description-container">
-                                <div class="project-card-description">My linux dotfiles for my current setup (which changes frequently), but as of creating this website is based on Arch linux, hyprland, kitty terminal. Stow is used for symlinking, and instructions for installation can be found in the README.md file</div>
+                        <div class="page">
+                            <div class="project-card" style="--background-image: url('projectimages/daw.png')">
+                                <div class="project-card-container">
+                                    <div class="project-card-title">Synthasonik</div>
+                                    <div class="project-card-description-container">
+                                        <div class="project-card-description">A DAW web app to fill the position of a web based but still minimalistic workstation, inspired by the interface of logic pro x by apple. Allows importing your own samples and playback of multiple tracks thanks to the audioContext interface. I use svelte stores for global variables and svelte writable for dynamic variables, and styling with TailwindCSS to simplify rapid development of a complex user interface. </div>
+                                    </div>
+                                    <div class="project-card-technologies">
+                                        <div class="sveltekit-label">SvelteKit</div>
+                                        <div class="tailwind-label">Tailwind</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="project-card-technologies">
-                            <div class="stow-label">Stow</div>
-                            <div class="shell-label">Shell</div>
                         </div>
-                    </div>
-                </div>
-                <div class="project-card" style="--background-image: url('projectimages/game.png')">
-                    <div class="project-card-container">
-                        <div class="project-card-title">Bookmarks</div>
-                        <div class="project-card-description-container">
-                            <div class="project-card-description">EPUB and PDF reader with inline LLM assistance to read your favourite books in more depth. multiple bookmarks makes cross referencing much easier for study. contextual explanation helps explain smaller chunks as part of the bigger picture, and the welcome summary summarises the book so far to avoid forgetting the story so far after time away. AI powered PDF text extraction can summarise manga stories too.</div>
+
+                        <div class="page">
+                            <div class="project-card" style="--background-image: url('projectimages/chess.png')">
+                                <div class="project-card-container">
+                                    <div class="project-card-title">knights tour solver</div>
+                                    <div class="project-card-description-container">
+                                        <div class="project-card-description">A program to visually solve the famous Knights Tour problem, showing possible moves from the knights position and highlighting previous moves. it implements the Warnsdorffs heuristic to look ahead and greedily choose the move with the largest number of possible outgoing moves from it. Pygame provides a simple and customizable user interface, and in the future I plan to add a mode for the user to be able to solve it themselves as well as solving for custom board sizes</div>
+                                    </div>
+                                    <div class="project-card-technologies">
+                                        <div class="python-label">Python</div>
+                                        <div class="pygame-label">Pygame</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="project-card-technologies">
-                            <div class="react-label">React</div>
-                            <div class="tailwind-label">Tailwind</div>
+
+                        <div class="page">
+                            <div class="project-card" style="--background-image: url('projectimages/')">
+                                <div class="project-card-container">
+                                    <div class="project-card-title">Linux Dotfiles</div>
+                                        <div class="project-card-description-container">
+                                            <div class="project-card-description">My linux dotfiles for my current setup (which changes frequently), but as of creating this website is based on Arch linux, hyprland, kitty terminal. Stow is used for symlinking, and instructions for installation can be found in the README.md file</div>
+                                        </div>
+                                        <div class="project-card-technologies">
+                                        <div class="stow-label">Stow</div>
+                                        <div class="shell-label">Shell</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+
+                        <div class="page">
+                            <div class="project-card" style="--background-image: url('projectimages/game.png')">
+                                <div class="project-card-container">
+                                    <div class="project-card-title">Bookmarks</div>
+                                    <div class="project-card-description-container">
+                                        <div class="project-card-description">EPUB and PDF reader with inline LLM assistance to read your favourite books in more depth. multiple bookmarks makes cross referencing much easier for study. contextual explanation helps explain smaller chunks as part of the bigger picture, and the welcome summary summarises the book so far to avoid forgetting the story so far after time away. AI powered PDF text extraction can summarise manga stories too.</div>
+                                    </div>
+                                    <div class="project-card-technologies">
+                                        <div class="react-label">React</div>
+                                        <div class="tailwind-label">Tailwind</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- need an even number of pages to close cover -->
+                        <div class="page">
+                            
+                        </div>
+                        <div class="page cover">
+                            <!-- back cover content or leave blank -->
+                        </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <script src="page-flip.browser.js"></script>
     <script src="script.js"></script>
+
 </body>
 </html>

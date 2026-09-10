@@ -1,0 +1,21 @@
+{
+  "name": "newportfolio",
+  "version": "1.0.0",
+  "description": "PORTFOLIO SITE - new portfolio since the old one is next js static tailwind hot garbage - still WIP",
+  "homepage": "https://github.com/NaokiTM/newportfolio#readme",
+  "bugs": {
+    "url": "https://github.com/NaokiTM/newportfolio/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NaokiTM/newportfolio.git"
+  },
+  "type": "commonjs",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "page-flip": "^2.0.7"
+  }
+}
