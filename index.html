@@ -8,98 +8,100 @@
     <!-- google fonts link -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Bruno+Ace+SC&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Bruno+Ace+SC&family=Syne:wght@400..800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Monomaniac+One&display=swap" rel="stylesheet">
-    <title>website</title>
+    <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=Quintessential&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&display=swap" rel="stylesheet">
+
+    
+    <title>Naoki Miyagawa</title>
 </head>
 <body class="syne-normal">
     <!-- title -->
-     <div id="title-container">
-        <h1 id="title"> Naoki Miyagawa </h1>
-     </div>
-
-
-    <!-- Description -->
-    <div id="description">
-        <div style="display: inline-block;">Computer science & AI graduate from Aberystwyth University, building interesting mobile + web apps with emphasis on UI/UX design. I also love various forms of fitness and playing guitar. Find me on <a href="https://github.com/NaokiTM" class="link">my Github</a> and my <a href = "https://www.linkedin.com/in/naoki-miyagawa1/" class="link">LinkedIn</a>, or drop me a line at <div class="link" style="display: inline-block;">naokimiyagawa05@gmail.com</div>. My resume can be downloaded <a href="CV.pdf" class="link">here</a>.</div>
+    <div id="title-container">
+        <h1 id="title">Naoki Miyagawa</h1>
     </div>
 
-    <!-- Projects -->
-    <div id="projects">
-        <div class="project-card" style="--background-image: url('projectimages/daw.png')">
-            <div class="project-card-container">
-                <div class="project-card-title">Synthasonik</div>
-                <div class="project-card-description-container">
-                    <div class="project-card-description">A DAW web app to fill the position of a web based but still minimalistic workstation, inspired by the interface of logic pro x by apple. Allows importing your own samples and playback of multiple tracks thanks to the audioContext interface. I use svelte stores for global variables and svelte writable for dynamic variables, and styling with TailwindCSS to simplify rapid development of a complex user interface. </div>
+
+    <div id="main-container">
+        <div id="left-container">
+            <div id="top-left-container">
+                <!-- Description -->
+                <div id="description">
+                    <div style="display: inline-block;">Computer science & AI graduate from Aberystwyth University, building interesting mobile + web apps with emphasis on UI/UX design. I love playing guitar and .
                 </div>
-                <div class="project-card-technologies">
-                    <div class="sveltekit-label">SvelteKit</div>
-                    <div class="tailwind-label">Tailwind</div>
-                </div>
-            </div>
-        </div>
-        <div class="project-card" style="--background-image: url('projectimages/chess.png')">
-            <div class="project-card-container">
-                <div class="project-card-title">knights tour solver</div>
-                <div class="project-card-description-container">
-                    <div class="project-card-description">A program to visually solve the famous Knights Tour problem, showing possible moves from the knights position and highlighting previous moves. it implements the Warnsdorffs heuristic to look ahead and greedily choose the move with the largest number of possible outgoing moves from it. Pygame provides a simple and customizable user interface, and in the future I plan to add a mode for the user to be able to solve it themselves as well as solving for custom board sizes</div>
-                </div>
-                <div class="project-card-technologies">
-                    <div class="python-label">Python</div>
-                    <div class="pygame-label">Pygame</div>
+                
+
+                <!-- contacts -->
+                <div id="contacts">
+                    <a href="https://github.com/NaokiTM" class="link">my Github</a>
+                    <a href = "https://www.linkedin.com/in/naoki-miyagawa1/" class="link">LinkedIn</a>
+                    <div class="link" style="display: inline-block;">naokimiyagawa05@gmail.com</div>
+                    <a href="CV.pdf" class="link">Resume</a>.</div>
                 </div>
             </div>
+            <div id="bottom-left-container">
+                <!-- Bottom left content -->
+                 <div>new feature goes here</div>
+            </div>
         </div>
-        <div class="project-card" style="--background-image: url('projectimages/')">
-            <div class="project-card-container">
-                <div class="project-card-title">Linux Dotfiles</div>
-                    <div class="project-card-description-container">
-                        <div class="project-card-description">My linux dotfiles for my current setup (which changes frequently), but as of creating this website is based on Arch linux, hyprland, kitty terminal. Stow is used for symlinking, and instructions for installation can be found in the README.md file</div>
+
+        <div id="right-container">
+            <!-- Projects -->
+            <div id="projects">
+                <div class="project-card" style="--background-image: url('projectimages/daw.png')">
+                    <div class="project-card-container">
+                        <div class="project-card-title">Synthasonik</div>
+                        <div class="project-card-description-container">
+                            <div class="project-card-description">A DAW web app to fill the position of a web based but still minimalistic workstation, inspired by the interface of logic pro x by apple. Allows importing your own samples and playback of multiple tracks thanks to the audioContext interface. I use svelte stores for global variables and svelte writable for dynamic variables, and styling with TailwindCSS to simplify rapid development of a complex user interface. </div>
+                        </div>
+                        <div class="project-card-technologies">
+                            <div class="sveltekit-label">SvelteKit</div>
+                            <div class="tailwind-label">Tailwind</div>
+                        </div>
                     </div>
-                    <div class="project-card-technologies">
-                    <div class="stow-label">Stow</div>
-                    <div class="shell-label">Shell</div>
+                </div>
+                <div class="project-card" style="--background-image: url('projectimages/chess.png')">
+                    <div class="project-card-container">
+                        <div class="project-card-title">knights tour solver</div>
+                        <div class="project-card-description-container">
+                            <div class="project-card-description">A program to visually solve the famous Knights Tour problem, showing possible moves from the knights position and highlighting previous moves. it implements the Warnsdorffs heuristic to look ahead and greedily choose the move with the largest number of possible outgoing moves from it. Pygame provides a simple and customizable user interface, and in the future I plan to add a mode for the user to be able to solve it themselves as well as solving for custom board sizes</div>
+                        </div>
+                        <div class="project-card-technologies">
+                            <div class="python-label">Python</div>
+                            <div class="pygame-label">Pygame</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card" style="--background-image: url('projectimages/')">
+                    <div class="project-card-container">
+                        <div class="project-card-title">Linux Dotfiles</div>
+                            <div class="project-card-description-container">
+                                <div class="project-card-description">My linux dotfiles for my current setup (which changes frequently), but as of creating this website is based on Arch linux, hyprland, kitty terminal. Stow is used for symlinking, and instructions for installation can be found in the README.md file</div>
+                            </div>
+                            <div class="project-card-technologies">
+                            <div class="stow-label">Stow</div>
+                            <div class="shell-label">Shell</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card" style="--background-image: url('projectimages/game.png')">
+                    <div class="project-card-container">
+                        <div class="project-card-title">Bookmarks</div>
+                        <div class="project-card-description-container">
+                            <div class="project-card-description">EPUB and PDF reader with inline LLM assistance to read your favourite books in more depth. multiple bookmarks makes cross referencing much easier for study. contextual explanation helps explain smaller chunks as part of the bigger picture, and the welcome summary summarises the book so far to avoid forgetting the story so far after time away. AI powered PDF text extraction can summarise manga stories too.</div>
+                        </div>
+                        <div class="project-card-technologies">
+                            <div class="react-label">React</div>
+                            <div class="tailwind-label">Tailwind</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="project-card" style="--background-image: url('projectimages/game.png')">
-            <div class="project-card-container">
-                <div class="project-card-title">Bookmarks</div>
-                <div class="project-card-description-container">
-                    <div class="project-card-description">EPUB and PDF reader with inline LLM assistance to read your favourite books in more depth. multiple bookmarks makes cross referencing much easier for study. contextual explanation helps explain smaller chunks as part of the bigger picture, and the welcome summary summarises the book so far to avoid forgetting the story so far after time away. AI powered PDF text extraction can summarise manga stories too.</div>
-                </div>
-                <div class="project-card-technologies">
-                    <div class="react-label">React</div>
-                    <div class="tailwind-label">Tailwind</div>
-                </div>
-            </div>
-        </div>
-        <!-- <div class="project-card" style="--background-image: url('projectimages/typing.png')">
-            <div class="project-card-container">
-                <div class="project-card-title">Typetestr</div>
-                <div class="project-card-description-container">
-                    <div class="project-card-description">Typing game based on the mechanics of monkeytype where prompts and typed characters are displayed in place, allowing for a smoother and more responsive typing experience. There are 3 colour schemes to choose from, and the test can be refreshed whenever the user chooses. So far I have implemented quote mode, but I plan on expanding the game modes by adding a time based mode and also making the caret motion smoother as it moves between letters.</div>
-                </div>
-                <div class="project-card-technologies">
-                    <div class="react-label">React</div>
-                    <div class="tailwind-label">Tailwind</div>
-                </div>
-            </div>
-        </div> -->
-        <!-- <div class="project-card">
-            <div class="project-card-container">
-                <div class="project-card-title">Portfolio site</div>
-                <div class="project-card-description-container">
-                    <div class="project-card-description">The website you are looking at right now, to display my projects and any demos for web apps. written in plain HTML and CSS</div>
-                </div>
-                <div class="project-card-technologies">
-                <div class="html-label">HTML</div>
-                <div class="css-label">CSS</div>
-                </div>
-            </div>
-        </div>     -->
     </div>
 
     <script src="script.js"></script>
