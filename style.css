@@ -4,15 +4,11 @@
 }
 
 body {
-    background: #ffdabf;
+    background: #F2F0EF; /* Fallback color */
     background-size: 150%;
     background-size: cover; /* Makes the gradient cover the entire screen */
     background-repeat: no-repeat; /* Prevents the gradient from repeating */
     background-attachment: fixed; /* Keeps the gradient fixed while scrolling */
-}
-
-a {
-    color: black;
 }
 
 html,
@@ -22,80 +18,77 @@ body {
     margin: 0;
 }
 
+p {
+  font-size: 20px;
+  line-height: 1.2;
+  margin: 5px 0;
+}
+
+#top-bar, #main-container {
+    position: relative;
+    z-index: 1; /* Ensure content is above the veil */
+}
+
 #main-container {
     display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 100%;
-}
-
-#left-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    flex: 1 1 50%;   /* was missing */
-    height: 100%;
-    box-sizing: border-box;
-}
-
-#top-left-container {
-    display: flex;
-    flex-direction: column;
+    height: 90vh;
     justify-content: center;
     align-items: center;
 }
 
-#right-container {
-    flex: 1 1 50%;
+#center-box {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 24px;
+    box-sizing: border-box; 
+    border: 2px solid black;
+    width: 20%;
+    min-width: 260px;
+    max-width: 500px;
+    aspect-ratio: 1 / 1;
+    text-align: left;
+}
+
+#name-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    padding: 0; 
+    width: auto; 
+}
+
+#description {
+    text-align: left;
+    align-self: flex-start;
+    padding-top: 10px;
+}
+
+#top-bar {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    height: 100%;
-    box-sizing: border-box;
-    overflow: hidden;
+    padding: 20px 20px;
 }
 
-#book-positioner {
-    width: 850px;
-    height: 530px;
-    flex-shrink: 0;
-    transition: transform 0.5s ease;
-    transform: translateX(-120px); /* shifted left initially */
-}
-
-#book-positioner.shift-right {
-    transform: translateX(0);
-}
-
-#book {
-    width: 100%;
-    height: 100%;
-}
-
-.page {
-    background: white;
-    box-sizing: border-box;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-}
-
-.page.cover {
-    background: #b3261e;
+#resume-button {
+    background-color: black;
     color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 20px;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 15px;
+    text-decoration: none;
+    font-family: "Capella Bellatrix", sans-serif; 
+    letter-spacing: 0.8px;
+    font-weight: 700;
 }
 
-#title {
-    font-size: 40px;
-    font-weight: bold;
-    font-family: "quintessential", serif;
-}
-
-#title-container {
-    display: flex;
-    justify-content: center;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+#first-name, #last-name {
+    font-size: 70px;
+    font-family: "Capella", serif;
 }
 
 /* #projects {
@@ -108,28 +101,16 @@ body {
 .project-card-link {
     text-decoration: none;
 }
-
-#description {
-    display: inline-block;
-    /* padding: 50px; */
-    padding-left: 50px;
-    padding-right: 50px;
-    
+.contact-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
 }
 
-#contacts {
-    display: flex;
-    flex-direction: column;
-    /* padding-left: 50px; */
-    padding-right: 50px;
-    padding-bottom: 50px;
 
-}
-
-#description, #contacts {
-    font-size: 24px;
-    font-weight: 400;
-    font-family: "Gabarito", sans-serif;
+#description, #location {
+    font-size: 20px;
+    font-family: "Capella Bellatrix", sans-serif;
 }
 
 .link {
@@ -222,116 +203,76 @@ body {
 
 .sveltekit-label {
     background-color: orangered;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 20px;
-    border: 1px solid black;
 }
 
 .tailwind-label {
     background-color: lightskyblue;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 20px;
-    border:1px solid black;
 }
 
 .python-label {
     background-color: goldenrod;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 20px;
-    border: 1px solid black;
 }
 
 .pygame-label {
     background-color: orange;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 20px;
-    border: 1px solid black;
 }
 
 .stow-label {
     background-color: grey;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 20px;
-    border: 1px solid black;
 }
 
 .shell-label {
     background-color: greenyellow;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 20px;
-    border: 1px solid black;
 }
 
 .react-label {
     background-color: aqua;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 20px;
-    border: 1px solid black;
 }
 
 .javascript-label {
     background-color: #f5e042;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 20px;
-    border: 1px solid black;
 }
 
 .threejs-label {
     background-color: darkcyan;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 20px;
-    border: 1px solid black;
 }
 
 .html-label {
     background-color: #ff8800;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 20px;
-    border: 1px solid black;
 }
 
 .css-label {
     background-color: #00c3ff;
+
+}
+
+.css-label,
+.html-label,
+.threejs-label,
+.javascript-label,
+.pygame-label,
+.react-label,
+.shell-label,
+.stow-label,
+.python-label,
+.sveltekit-label,
+.tailwind-label {
     padding-left: 10px;
     padding-right: 10px;
     border-radius: 20px;
     border: 1px solid black;
 }
 
-.jost-normal {
-  font-family: "Jost", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: normal;
-  font-style: normal;
+@font-face {
+    font-family: "Capella";
+    src: url("fonts/Capella.otf") format("opentype");
+    font-weight: 400;
 }
 
-.bruno-ace-sc-regular {
-  font-family: "Bruno Ace SC", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.syne-normal {
-  font-family: "Syne", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: normal;
-  font-style: normal;
-}
-
-.monomaniac-one-regular {
-  font-family: "Monomaniac One", sans-serif;
-  font-weight: 400;
-  font-style: normal;
+@font-face {
+    font-family: "Capella Bellatrix";
+    src: url("fonts/Capella Bellatrix.otf") format("opentype");
+    font-weight: 400;
 }
 
 /* disable ugly scrollbar in chrome */
