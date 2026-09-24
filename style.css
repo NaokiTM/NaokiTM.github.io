@@ -1,6 +1,5 @@
 * {
     background-size: 400% 400%;
-    font-size: 20px;
     user-select: none;
 }
 
@@ -90,11 +89,9 @@ p {
     align-items: center;
     justify-content: center;
     gap: 10px;
-
     padding: 0;
     border: none;
     background: none;
-
     color: inherit;
     font: inherit;
     cursor: pointer;
@@ -199,7 +196,6 @@ p {
     font-family: "Capella", serif;
 }
 
-
 #projects {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -239,7 +235,9 @@ p {
     flex-direction: column;
     overflow: hidden;
     box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+    font-size: 20px;
 }
+
 /* Background image layer */
 .project-card::before {
     content: '';
@@ -319,7 +317,6 @@ p {
     font-family: "Capella Bellatrix", sans-serif;
     font-size: 16px;
     align-self: flex-start;   
-
 }
 
 .project-card:hover .project-github-button {
@@ -379,6 +376,7 @@ p {
     font-size: large;
     overflow: hidden;
     font-family: "Capella Bellatrix", sans-serif;
+    font-size: 20px;
 }
 
 .project-card-description ul {
@@ -420,5 +418,11 @@ p {
   display: none;             /* Chrome, Safari */
 }
 
-
-
+footer {
+    width: 100%;
+    padding-bottom: 40px;
+    display: flex;
+    justify-content: center;
+    font-family: "Capella Bellatrix";
+    font-size: 24px;
+}
