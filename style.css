@@ -1,6 +1,7 @@
 * {
     background-size: 400% 400%;
     font-size: 20px;
+    user-select: none;
 }
 
 body {
@@ -24,16 +25,44 @@ p {
   margin: 5px 0;
 }
 
+.background-gradient{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Ensure the veil is behind other content */
+    background: conic-gradient(
+        from 50deg at 0% 0%,
+        #ffffff 0deg,
+        #d6ecf8 20deg,
+        #c6f1ff 45deg,
+        #ffffff 70deg,
+        #c9e8f5 90deg
+    );
+}
+
 #top-bar, #main-container {
     position: relative;
     z-index: 1; /* Ensure content is above the veil */
 }
 
+#main-container,
+#projects {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+
 #main-container {
     display: flex;
-    height: 90vh;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 #center-box {
@@ -49,6 +78,40 @@ p {
     max-width: 500px;
     aspect-ratio: 1 / 1;
     text-align: left;
+    /* box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.5);
+    border-radius: 25px; */
+    flex: 1
+}
+
+#projects-arrow {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    padding: 0;
+    border: none;
+    background: none;
+
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+}
+
+.projects-label {
+    font-family: "Capella Bellatrix", sans-serif;
+    font-size: 20px;
+}
+
+.arrow {
+    font-size: 24px;
+    transition: transform 0.2s ease;
+}
+
+#projects-arrow:hover .arrow {
+    transform: translateY(4px);
 }
 
 #name-container {
@@ -66,24 +129,69 @@ p {
 }
 
 #top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    padding: 20px 20px;
+    box-sizing: border-box;
+    height: 5vh;
+}
+
+#top-bar-flex {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 20px;
+}
+
+#top-bar-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#scroll-spacer {
+    height: calc(100vh + 5vh); 
+    position: relative;
+}
+
+#page-wrapper {
+    position: sticky;
+    top: 5vh;
+    height: calc(100vh - 5vh);
+    overflow: hidden;
+}
+
+.contact-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 25%;
+    box-sizing: border-box;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.5);
+    background-color: black;
+}
+
+.contact-button img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    display: block;
 }
 
 #resume-button {
     background-color: black;
+    /* color: #c6f1ff; */
     color: white;
     padding: 10px 20px;
     cursor: pointer;
     font-size: 20px;
-    transition: background-color 0.3s, color 0.3s;
     border-radius: 15px;
     text-decoration: none;
     font-family: "Capella Bellatrix", sans-serif; 
-    letter-spacing: 0.8px;
     font-weight: 700;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.5);
 }
 
 #first-name, #last-name {
@@ -91,12 +199,16 @@ p {
     font-family: "Capella", serif;
 }
 
-/* #projects {
+
+#projects {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
     padding: 50px;
-    gap: 50px;
-} */
+    align-content: center;
+    pointer-events: none;
+    padding-top: 20%;
+}
 
 .project-card-link {
     text-decoration: none;
@@ -118,15 +230,16 @@ p {
 }   
 
 .project-card {
+    position: relative; /* needed so ::before/::after (absolute) anchor to the card, not the page */
     width: 100%;
-    height: 100%;
+    height: 500px; /* explicit height replaces the book page's fixed dimensions */
     margin: 0;
-    border-radius: 0;
+    border-radius: 30px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
 }
-
 /* Background image layer */
 .project-card::before {
     content: '';
@@ -164,9 +277,17 @@ p {
 }
 
 .project-card:hover .project-card-title,
-.project-card:hover .project-card-description {
+.project-card:hover .project-card-description,
+.project-card:hover .carousel-item {
     color: #f8f2ff;
 }
+
+.project-card:hover {
+    border: 3px solid;
+    border-color: white;
+}
+
+
 
 .project-card-container {
     padding: 40px;
@@ -184,13 +305,72 @@ p {
     min-height: 0;          /* critical — allows flex child to shrink below content size */
 }
 
-.project-card-title {
-    font-weight: 600;
+.project-github-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 8px 16px;
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    font-family: "Capella Bellatrix", sans-serif;
+    font-size: 16px;
+    align-self: flex-start;   
+
 }
 
-.project-card-technologies {
+.project-card:hover .project-github-button {
+    border: solid;
+    border-width: 2px;
+}
+
+.project-github-button img {
+    width: 18px;
+    height: 18px;
+}
+
+.project-topbar {
     display: flex;
-    gap: 5px;
+    justify-content: space-between;
+}
+
+.card-carousel {
+    display: inline-flex;
+    align-items: center;
+    height: 28px;
+    overflow: hidden;
+}
+
+.carousel-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.4s ease; /* the "brief scroll" motion happens here */
+}
+
+
+.project-card-title {
+    font-weight: 800;
+    font-family: "Capella", serif;
+}
+
+.carousel-item {
+    white-space: nowrap;
+    animation: slideIn 0.4s ease;
+    font-family: "Capella Bellatrix", sans-serif;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(12px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
 .project-card-description {
@@ -198,69 +378,29 @@ p {
     padding-bottom: 10px;
     font-size: large;
     overflow: hidden;
-
+    font-family: "Capella Bellatrix", sans-serif;
 }
 
-.sveltekit-label {
-    background-color: orangered;
+.project-card-description ul {
+    list-style: none;
+    padding-left: 0;
 }
 
-.tailwind-label {
-    background-color: lightskyblue;
+.project-card-description li::before {
+    content: "✦";
+    margin-right: 10px;
 }
 
-.python-label {
-    background-color: goldenrod;
-}
-
-.pygame-label {
-    background-color: orange;
-}
-
-.stow-label {
-    background-color: grey;
-}
-
-.shell-label {
-    background-color: greenyellow;
-}
-
-.react-label {
-    background-color: aqua;
-}
-
-.javascript-label {
-    background-color: #f5e042;
-}
-
-.threejs-label {
-    background-color: darkcyan;
-}
-
-.html-label {
-    background-color: #ff8800;
-}
-
-.css-label {
-    background-color: #00c3ff;
-
-}
-
-.css-label,
-.html-label,
-.threejs-label,
-.javascript-label,
-.pygame-label,
-.react-label,
-.shell-label,
-.stow-label,
-.python-label,
-.sveltekit-label,
-.tailwind-label {
+.tech-label {
     padding-left: 10px;
     padding-right: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
     border-radius: 20px;
-    border: 1px solid black;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+    font-family: "Capella Bellatrix", sans-serif;
+    font-size: 18px;
+    font-weight: 500;
 }
 
 @font-face {
@@ -279,4 +419,6 @@ p {
 ::-webkit-scrollbar {
   display: none;             /* Chrome, Safari */
 }
+
+
 

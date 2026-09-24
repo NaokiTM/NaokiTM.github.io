@@ -16,46 +16,70 @@
     <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=Quintessential&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&display=swap" rel="stylesheet">
 
-    
     <title>Naoki Miyagawa</title>
 </head>
 <body>
-    <div class="background-gradient">
-        <nav id="top-bar">
+    <div class="background-gradient"></div>
+    <nav id="top-bar">
+        <div id="top-bar-flex">
             <div id="top-bar-left">
-                <image src="/projectimages/linkedin.png" alt="LinkedIn" class="contact-icon"></image>
-                <image src="/projectimages/github.png" alt="GitHub" class="contact-icon"></image>
+                <a class="contact-button" href="https://github.com/NaokiTM" aria-label="GitHub">
+                    <img src="/projectimages/github.png" alt="">
+                </a>
+
+                <a class="contact-button" href="https://www.linkedin.com/" aria-label="LinkedIn">
+                    <img src="/projectimages/linkedin.png" alt="">
+                </a>
+
+                <a class="contact-button" href="mailto:your@email.com" aria-label="Email">
+                    <img src="/projectimages/email.png" alt="">
+                </a>
             </div>
+
             <div id="top-bar-right">
-                <a href="CV.pdf" id="resume-button">Download CV</a>
+                <a href="CV.pdf" id="resume-button">Open CV</a>
             </div>
-        </nav>
-
-        <section id="main-container">
-            <div id="center-box">
-                <!-- title -->
-                <div id="name-container">
-                    <div id="first-name">Naoki</div>
-                    <div id="last-name">Miyagawa</div>
-                </div>
-
-
-                <!-- Description -->
-                <p id="description">
-                    Computer science & AI graduate from Aberystwyth University,
-                    currently based in Bristol, UK.
-                    I like to make interesting mobile + web apps with emphasis on UI/UX.
-                    In my free time, I enjoy calligraphy, various forms of fitness, and playing guitar.
-                </p>
-
-                </div>
-            </section>
         </div>
-    </div>
+    </nav>
 
 
-    <script src="page-flip.browser.js"></script>
-    <script src="script.js"></script>
+    <div id="scroll-spacer">
+        <div id="page-wrapper">
+            <section id="main-container">
+
+                <!-- needed to center the center box and move the projects arrow down -->
+                <div style="flex: 1"></div>
+
+                <div id="center-box">
+                    <!-- title -->
+                    <div id="name-container">
+                        <div id="first-name">Naoki</div>
+                        <div id="last-name">Miyagawa</div>
+                    </div>
+
+                    <!-- Description -->
+                    <p id="description">
+                        Computer science & AI graduate from Aberystwyth University,
+                        currently based in <b>Bristol, UK.</b>
+                        I like to make interesting mobile + web apps with emphasis on UI/UX.
+                        In my free time, I enjoy calligraphy, various forms of fitness, and playing guitar.
+                    </p>
+                </div>
+
+                <button id="projects-arrow">
+                    <span class="projects-label">Projects</span>
+                    <span class="arrow">↓</span>
+                </button>
+            </section>
+
+
+            <!-- projects loaded in from js at runtime -->
+            <section id="projects">
+            </section>
+
+<!-- project card loads before the scroll script applies -->
+<script src="projectcard.js"></script>
+<script src="script.js"></script>
 
 </body>
 </html>
