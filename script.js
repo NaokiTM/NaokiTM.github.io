@@ -1,73 +1,81 @@
 const spacer = document.getElementById('scroll-spacer');
-const pageWrapper = document.getElementById('page-wrapper');
 const mainContainer = document.getElementById('main-container');
 const projects = document.getElementById('projects');
+const projectsArrow = document.getElementById('projects-arrow');
 
-const fadeDistance = window.innerHeight * 0.5; // how much scroll it takes to complete the fade — tune this
+const fadeDistance = window.innerHeight * 0.5;
+const maxStep = 40; // hard cap per wheel event, so fast scrolling can't skip past logic
 
 let scrollDistance = 0;
+let showingProjects = false;
+let animating = false;
 
+// updates based on scroll. meaningfully updates when we enter the project view, which lets us scroll through projects without switching screens. 
+let virtualScroll = 0;
+
+//sets the scroll zone for the projects area. 
 function setSpacerHeight() {
-
-    // how much taller #projects' real content is than one viewport
-    // extrascroll adds some extra space to scroll
     const extraScroll = 100;
 
-    scrollDistance = Math.max(
-        projects.scrollHeight - window.innerHeight,
-        0
-    ) + extraScroll;
+    // scrollheight is the entire height of projects, and we take away what we can already see. 
+    // we then add the extrascroll buffer to see all projects
+    scrollDistance = Math.max(projects.scrollHeight - window.innerHeight, 0) + extraScroll;
 
     spacer.style.height = `${window.innerHeight + fadeDistance + scrollDistance}px`;
 }
 
-function updateScrollFade() {
-    const rect = spacer.getBoundingClientRect();
-    const raw = Math.max(-rect.top, 0);
+// toggles state between front page and projects area
+function setView(view) {
+    showingProjects = view === 'projects';
 
-    // phase 1: fading main-container out / projects in
-    let fadeProgress = Math.min(raw / fadeDistance, 1);
+    mainContainer.style.opacity = showingProjects ? 0 : 1;
+    mainContainer.style.transform = showingProjects ? 'translateY(-40px)' : 'translateY(0)';  //cool transition effect
+    mainContainer.style.pointerEvents = showingProjects ? 'none' : 'auto';
 
-    const backgroundFadeProgress = Math.min(raw / (fadeDistance * 0.9), 1);
-
-    mainContainer.style.opacity = 1 - backgroundFadeProgress;
-    mainContainer.style.transform = `translateY(${-fadeProgress * 40}px)`;
-    projects.style.opacity = fadeProgress;
-
-    mainContainer.style.pointerEvents = fadeProgress > 0.5 ? 'none' : 'auto';
-    projects.style.pointerEvents = fadeProgress > 0.5 ? 'auto' : 'none';
-
-    // phase 2: once fully faded in, scrolling further moves through the cards
-    const scrollRaw = Math.min(Math.max(raw - fadeDistance, 0), scrollDistance);
-    const entranceOffset = (1 - fadeProgress) * 40; // keeps the slide-up-on-appear effect
-
-    projects.style.transform = `translateY(${entranceOffset - scrollRaw}px)`;
+    projects.style.opacity = showingProjects ? 1 : 0;
+    projects.style.pointerEvents = showingProjects ? 'auto' : 'none';
 }
 
-let ticking = false;
-window.addEventListener('scroll', () => {
-    if (!ticking) {
-        requestAnimationFrame(() => {
-            updateScrollFade();
-            ticking = false;
-        });
-        ticking = true;
-    }
-});
+//snaps to either the front page view or projects view by calling setView. 
+function snapTo(view) {
+    animating = true;
+    virtualScroll = 0;
+    setView(view);
 
-window.addEventListener('resize', () => {
-    setSpacerHeight();
-    updateScrollFade();
-});
+    // 600ms means user interaction can't happen for 600ms, avoiding lots of input. 
+    setTimeout(() => { animating = false; }, 600);
+}
+
+//scrolling logic, ran when mouse wheel scrolls. 
+window.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    if (animating) return;  //prevents scrolling during state transition
+
+    //delta is how much the user has scrolled vertically (positive if down, negative if up)
+    const delta = Math.max(Math.min(e.deltaY, maxStep), -maxStep);
+
+    //if we are on the front page, then delta > 0 means we switch to projects. 
+    if (!showingProjects) {
+        if (delta > 0) snapTo('projects');
+        return;
+    }
+
+    virtualScroll = Math.min(
+        Math.max(virtualScroll + delta, 0), 
+        scrollDistance
+    );
+
+    if (virtualScroll <= 0 && delta < 0) {
+        snapTo('main');
+        return;
+    }
+
+    projects.style.transform = `translateY(${-virtualScroll}px)`;
+}, { passive: false });
+
+window.addEventListener('resize', setSpacerHeight);
 
 setSpacerHeight();
-updateScrollFade();
+setView('main');
 
-const projectsArrow = document.getElementById('projects-arrow');
-projectsArrow.addEventListener('click', () => {
-    const spacerTop = spacer.offsetTop;
-    window.scrollTo({
-        top: spacerTop + fadeDistance,
-        behavior: 'smooth'
-    });
-});
+projectsArrow.addEventListener('click', () => snapTo('projects'));

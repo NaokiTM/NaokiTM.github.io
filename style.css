@@ -24,6 +24,11 @@ p {
   margin: 5px 0;
 }
 
+#main-container,
+#projects {
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
 .background-gradient{
     position: fixed;
     top: 0;
