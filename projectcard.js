@@ -22,7 +22,7 @@ function createProjectCard({ title, image, tech, points, github, showButton = tr
 
             ${showButton ? `
                 <a class="project-github-button" href="${github}" target="_blank" rel="noopener noreferrer" aria-label="View ${title} on GitHub">
-                    <img src="/projectimages/github.png" alt="">
+                    <img src="/projectimages/github2.png" alt="">
                     <span>View on GitHub</span>
                 </a>
             ` : ''}

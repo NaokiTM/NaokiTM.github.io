@@ -2,6 +2,7 @@ const spacer = document.getElementById('scroll-spacer');
 const mainContainer = document.getElementById('main-container');
 const projects = document.getElementById('projects');
 const projectsArrow = document.getElementById('projects-arrow');
+const topBar = document.getElementById('top-bar');
 
 const fadeDistance = window.innerHeight * 0.5;
 const maxStep = 40; // hard cap per wheel event, so fast scrolling can't skip past logic
@@ -12,6 +13,7 @@ let animating = false;
 
 // updates based on scroll. meaningfully updates when we enter the project view, which lets us scroll through projects without switching screens. 
 let virtualScroll = 0;
+
 
 //sets the scroll zone for the projects area. 
 function setSpacerHeight() {
@@ -34,6 +36,7 @@ function setView(view) {
 
     projects.style.opacity = showingProjects ? 1 : 0;
     projects.style.pointerEvents = showingProjects ? 'auto' : 'none';
+    topBar.classList.toggle('projects-view', showingProjects);
 }
 
 //snaps to either the front page view or projects view by calling setView. 
