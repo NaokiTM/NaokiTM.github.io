@@ -31,7 +31,9 @@ function setView(view) {
     showingProjects = view === 'projects';
 
     mainContainer.style.opacity = showingProjects ? 0 : 1;
-    mainContainer.style.transform = showingProjects ? 'translateY(-40px)' : 'translateY(0)';  //cool transition effect
+    mainContainer.style.transform = showingProjects
+    ? 'translateY(-40px)'
+    : 'translateY(-4vh)';  //cool transition effect
     mainContainer.style.pointerEvents = showingProjects ? 'none' : 'auto';
 
     projects.style.opacity = showingProjects ? 1 : 0;

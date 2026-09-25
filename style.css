@@ -160,7 +160,7 @@ p {
     z-index: -1;
     pointer-events: none;
     border-bottom: 2px solid black;
-    
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.5);
 }
 
 #top-bar.projects-view::before {
