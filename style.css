@@ -462,3 +462,92 @@ footer {
     font-family: "Capella Bellatrix";
     font-size: 24px;
 }
+
+@media (max-width: 1024px) {
+
+    #center-box {
+        width: 90%;
+        min-width: unset; /* the fixed 260px minimum fights a narrow phone screen */
+        max-width: 400px;
+        padding: 16px;
+    }
+
+    #first-name,
+    #last-name {
+        font-size: 40px; /* 70px is too large relative to phone viewport width */
+    }
+
+    #description {
+        font-size: 16px;
+    }
+
+    #top-bar {
+        height: auto;
+        padding: 12px 16px;
+    }
+
+    #top-bar-flex {
+        flex-wrap: wrap; /* lets contact icons + resume button wrap instead of squeezing */
+        gap: 10px;
+    }
+
+    .contact-button {
+        width: 34px;
+        height: 34px;
+    }
+
+    #resume-button {
+        padding: 6px 14px;
+        font-size: 16px;
+    }
+
+    #projects {
+        grid-template-columns: 1fr; /* single column instead of 4 impossibly narrow ones */
+        padding: 20px;
+        padding-top: 15%;
+        gap: 20px;
+    }
+
+    .project-card {
+        height: 420px; /* slightly shorter, since mobile viewports are often shorter overall */
+    }
+
+    .project-card-container {
+        padding: 20px; /* 40px padding ate too much of the available space on a small card */
+    }
+
+    .project-card-title {
+        font-size: 18px;
+    }
+
+    .project-card-description,
+    .project-card-description ul {
+        font-size: 16px;
+    }
+
+    .tech-label {
+        font-size: 14px;
+    }
+
+    .project-github-button {
+        font-size: 14px;
+        padding: 6px 12px;
+    }
+}
+
+@media (max-width: 420px) {
+    /* extra-small phones need a further reduction beyond the general phone breakpoint */
+
+    #first-name,
+    #last-name {
+        font-size: 32px;
+    }
+
+    #center-box {
+        width: 95%;
+    }
+
+    .project-card {
+        height: 380px;
+    }
+}
