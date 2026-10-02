@@ -1,4 +1,4 @@
-function createProjectCard({ title, image, tech, points, github, showButton = true }) {
+function createProjectCard({ title, image, tech, points, github, showGithub = true, website, showWebsite = false }) {
     const card = document.createElement('div');
     card.className = 'project-card';
     card.style.setProperty('--background-image', `url('${image}')`);
@@ -20,12 +20,20 @@ function createProjectCard({ title, image, tech, points, github, showButton = tr
                 </div>
             </div>
 
-            ${showButton ? `
-                <a class="project-github-button" href="${github}" target="_blank" rel="noopener noreferrer" aria-label="View ${title} on GitHub">
-                    <img src="/projectimages/github2.png" alt="">
-                    <span>View on GitHub</span>
-                </a>
-            ` : ''}
+            <div class="project-card-buttons">
+                ${showGithub ? `
+                    <a class="project-button" href="${github}" target="_blank" rel="noopener noreferrer" aria-label="View ${title} on GitHub">
+                        <img src="/projectimages/github2.png" alt="">
+                        <span>View on GitHub</span>
+                    </a>
+                ` : ''}
+                ${showWebsite ? `
+                    <a class="project-button" href="${website}" target="_blank" rel="noopener noreferrer" aria-label="View ${title} website">
+                        <img src="/projectimages/website.png" alt="">
+                        <span>View Website</span>
+                    </a>
+                ` : ''}
+            </div>
         </div>
     `;
 
@@ -71,7 +79,9 @@ projectsContainer.appendChild(createProjectCard({
         "Used Svelte stores and writable stores to manage global and dynamic application state.",
         "Used Tailwind CSS to rapidly develop and style a complex interactive interface."
     ],
-    github: "https://github.com/NaokiTM/SynthaSonik"
+    github: "https://github.com/NaokiTM/SynthaSonik",
+    website: "https://synthasonik.vercel.app/",
+    showWebsite: true
 }));
 
 projectsContainer.appendChild(createProjectCard({
@@ -100,7 +110,7 @@ projectsContainer.appendChild(createProjectCard({
 
     // redundant github link
     github: "https://github.com/NaokiTM",
-    showButton: false
+    showGithub: false
 }));
 
 // this will now run after the project cards have been appended, which prevents loading time issues
