@@ -64,7 +64,7 @@ projectsContainer.appendChild(createProjectCard({
         "A graphical solver for the classic Knight's Tour problem.",
         "Implemented Warnsdorff's heuristic to greedily select the most constrained next move.",
         "Visualised available moves and the knight's previous path using Pygame.",
-        "Planned extensions include a user-solve mode and support for custom board sizes."
+        "Ability for the user to select a desired board size."
     ],
     github: "https://github.com/NaokiTM/knights-tour"
 }));
@@ -78,7 +78,7 @@ projectsContainer.appendChild(createProjectCard({
         "Implemented multi-track audio playback and sample importing using the Web Audio API.",
         "Used Svelte stores and writable stores to manage global and dynamic application state.",
         "Used Tailwind CSS to rapidly develop and style a complex interactive interface.",
-        "many features yet to be implemented due to scale"
+        "Some backend features yet to be implemented due to scale"
     ],
     github: "https://github.com/NaokiTM/SynthaSonik",
     website: "https://synthasonik.vercel.app/",
