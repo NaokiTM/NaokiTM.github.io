@@ -29,7 +29,7 @@ function createProjectCard({ title, image, tech, points, github, showGithub = tr
                 ` : ''}
                 ${showWebsite ? `
                     <a class="project-button" href="${website}" target="_blank" rel="noopener noreferrer" aria-label="View ${title} website">
-                        <img src="/projectimages/website.png" alt="">
+                        <img src="/projectimages/link.png" alt="">
                         <span>View Website</span>
                     </a>
                 ` : ''}
@@ -74,10 +74,11 @@ projectsContainer.appendChild(createProjectCard({
     image: "projectimages/daw.png",
     tech: ["SvelteKit", "Tailwind"],
     points: [
-        "A minimalistic web-based DAW / DAW interface, loosely inspired by Logic Pro X.",
+        "A web-based DAW / DAW interface, loosely inspired by Logic Pro X.",
         "Implemented multi-track audio playback and sample importing using the Web Audio API.",
         "Used Svelte stores and writable stores to manage global and dynamic application state.",
-        "Used Tailwind CSS to rapidly develop and style a complex interactive interface."
+        "Used Tailwind CSS to rapidly develop and style a complex interactive interface.",
+        "many features yet to be implemented due to scale"
     ],
     github: "https://github.com/NaokiTM/SynthaSonik",
     website: "https://synthasonik.vercel.app/",
