@@ -78,3 +78,10 @@ typeText(document.getElementById('description'));
 const clock = document.getElementById('location');
 const tick = () => clock.textContent = 'Bristol, United Kingdom:  ' + new Date().toLocaleTimeString('en-GB', { timeZone: 'Europe/London' });
 tick(); setInterval(tick, 1000);
+
+
+const t = document.getElementById('menu-toggle');
+t.addEventListener('click', () =>
+  t.setAttribute('aria-expanded', t.getAttribute('aria-expanded') !== 'true'));
+
+

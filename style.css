@@ -1,3 +1,6 @@
+/* =====================================================================
+   FONTS
+   ===================================================================== */
 @font-face {
     font-family: 'Erigo';
     src: url('/fonts/Erigo.otf') format('opentype');
@@ -12,34 +15,53 @@
     font-style: normal;
 }
 
+
+/* =====================================================================
+   VARIABLES + RESETS
+   ===================================================================== */
 :root {
   --nav-h: 60px;
   --gutter: 60px;
   --line: 1px solid var(--color);
   --background: white;
   --color: rgb(41, 41, 41);
+  --spins: 2;                          /* full rotations of the cross on load (used by xh-spin) */
+
+  /* the "+" shape, reused by the hero cross, the navbar cross and every corner arm */
+  --cross:
+    linear-gradient(var(--color), var(--color)) center / 1px 100% no-repeat,   /* vertical line */
+    linear-gradient(var(--color), var(--color)) center / 100% 1px no-repeat;   /* horizontal line */
 }
 
 * {
-    user-select: none;
-    -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
-/* incorporate the borders into the sizing for ease  */
+/* incorporate the borders into the sizing for ease */
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    color: var(--color);
-    background: var(--background);
+  margin: 0;
+  color: var(--color);
+  background: var(--background);
 }
 
 h1, h2, h3, h4, h5, h6 {
-    margin: 0;
+  margin: 0;
 }
 
+.normal-font {
+  font-family: sans-serif;
+  letter-spacing: normal;
+}
+
+
+/* =====================================================================
+   NAVBAR
+   ===================================================================== */
 #navbar {
   position: sticky;
   top: 1px;
@@ -50,6 +72,17 @@ h1, h2, h3, h4, h5, h6 {
   height: var(--nav-h);
   background: var(--background);
   box-shadow: 0 -1px 0 var(--background);
+}
+
+/* bottom line. max() keeps it edge to edge when --gutter is 0 (mobile) */
+#navbar::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left:  max(0px, calc(var(--gutter) - 1px));    /* starts on the spacer's border so the corner joins */
+  right: max(0px, calc(var(--gutter) - 1px));
+  height: 1px;
+  background: var(--color);
 }
 
 .spacer {
@@ -90,55 +123,73 @@ h1, h2, h3, h4, h5, h6 {
   gap: 20px;
 }
 
-#navbar::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: calc(var(--gutter) - 1px);   /* starts on the spacer's border so the corner joins */
-  right: calc(var(--gutter) - 1px);
-  height: 1px;
-  background: var(--color);
-}
-
-#social-icons {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
 #social-icons a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #social-icons img {
-    width: 30px;
-    height: 30px;
-    object-fit: contain;
+  width: 30px;
+  height: 30px;
 }
 
-#social-icons .social {
-  justify-content: flex-start;
+/* burger + menu wrapper: hidden / invisible on desktop (mobile section turns them on) */
+#menu-toggle { display: none; }
+#menu        { display: contents; }
+
+
+/* =====================================================================
+   BUTTONS
+   .social is used in the navbar AND in the project cards, so the shared
+   look lives here once; each place only overrides what differs.
+   ===================================================================== */
+.social {
+  display: inline-flex;
+  align-items: center;
   height: 36px;
-  padding: 0 2px;
-  border: 1px solid transparent;
   border-radius: 100px;
-  color: var(--background);
+  color: var(--color);
   text-decoration: none;
   font-family: 'Typo Mono', monospace;
   font-size: 15px;
   letter-spacing: .5px;
   white-space: nowrap;
-  transition: background .25s, border-color .25s, padding .3s ease;
+  transition: background .25s, color .25s, border-color .25s, padding .3s ease, transform .25s;
 }
 
-#social-icons .social img {
+.social img {
   flex: none;
+  object-fit: contain;
   transition: width .3s ease, height .3s ease, filter .25s;
 }
 
-/* the label is collapsed until hover */
+/* hover: fills black, dark icon turns light */
+.social:hover,
+.social:focus-visible {
+  background: black;
+  border-color: white;
+  color: white;
+  outline: none;
+}
+
+.social:hover img,
+.social:focus-visible img {
+  filter: invert(1);
+}
+
+.social:active {
+  transform: scale(.96);
+}
+
+/* --- navbar version: icon only, becomes a pill with the label on hover --- */
+#social-icons .social {
+  justify-content: flex-start;
+  padding: 0 2px;
+  border: 1px solid transparent;
+  color: var(--background);
+}
+
 #social-icons .social span {
   max-width: 0;
   margin-left: 0;
@@ -147,20 +198,15 @@ h1, h2, h3, h4, h5, h6 {
   transition: max-width .3s ease, margin-left .3s ease, opacity .25s;
 }
 
-/* hover: becomes a pill like the CV button, icon shrinks to the left, label slides out */
 #social-icons .social:hover,
 #social-icons .social:focus-visible {
   padding: 0 16px 0 12px;
-  border-color: black;
-  background: black;
-  outline: none;
 }
 
 #social-icons .social:hover img,
 #social-icons .social:focus-visible img {
   width: 18px;
   height: 18px;
-  filter: invert(1);       /* dark icon becomes light on the black pill */
 }
 
 #social-icons .social:hover span,
@@ -170,190 +216,175 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 1;
 }
 
-#social-icons .social:active {
-    transform: scale(0.96);
+/* --- project card version: always a full pill --- */
+.caption .social {
+  flex: none;
+  align-self: flex-start;
+  gap: 8px;
+  margin: 0 12px;
+  padding: 0 16px 0 12px;
+  border: 1px solid black;
+  background: black;
+  color: white;
 }
 
 
+.caption .social img {
+  width: 20px;
+  height: 20px;
+  filter: invert(1);          /* black logo -> white */
+}
 
+.caption .social:hover,
+.caption .social:focus-visible {
+  background: white;
+  border-color: black;
+  color: black;
+}
+
+.caption .social:hover img,
+.caption .social:focus-visible img {
+  filter: none;               /* back to the black logo */
+}
+
+
+/* --- CV button --- */
 #cvbutton {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-decoration: none;
 
-    border: 1px solid black;
-    border-radius: 100px;
-    background: black;
-    color: var(--background);
+  border: 1px solid black;
+  border-radius: 100px;
+  background: black;
+  color: var(--background);
 
-    height: 36px;
-    padding: 0px 18px;
-    font-family: 'Typo Mono', monospace;
-    font-size: 15px;
-    letter-spacing: .5px;
+  height: 36px;
+  padding: 0 18px;
+  font-family: 'Typo Mono', monospace;
+  font-size: 15px;
+  letter-spacing: .5px;
 
-    cursor: pointer;
-    transition: background .25s, color .25s, transform .25s;
+  cursor: pointer;
+  transition: background .25s, color .25s, transform .25s;
 }
 
 #cvbutton:hover {
-    background: var(--background);
-    color: var(--color);
+  background: var(--background);
+  color: var(--color);
 }
 
 #cvbutton:active {
-    transform: scale(.96);
+  transform: scale(.96);
 }
 
+
+/* =====================================================================
+   CORNER ARMS (the bits of "+" that stick out at the panel corners)
+   shared look first, then just the position of each one
+   ===================================================================== */
 #left-spacer::after,
-#right-spacer::after {
+#right-spacer::after,
+#panel2::before,
+#panel2::after,
+#description::after {
   content: '';
-  position: absolute;                     /* positions against #navbar, so don't make .spacer position: relative */
-  bottom: calc(var(--nav-h) / -2);        /* the lower arm sticks out 50% of the navbar height */
-  width: calc(var(--gutter) + 1px);       /* +1px so there's a true centre pixel for the 1px lines */
+  position: absolute;
+  width:  calc(var(--gutter) + 1px);    /* +1px so there's a true centre pixel for the 1px lines */
   height: calc(var(--nav-h) + 1px);
   pointer-events: none;
-  background:
-    linear-gradient(var(--color), var(--color)) center / 1px 100% no-repeat,   /* vertical arm */
-    linear-gradient(var(--color), var(--color)) center / 100% 1px no-repeat;   /* horizontal arm */
+  background: var(--cross);
 }
 
-#left-spacer::after  { left:  calc(var(--gutter) / 2 - 1px); }
-#right-spacer::after { right: calc(var(--gutter) / 2 - 1px); }
+#left-spacer::after  { left:  calc(var(--gutter) / 2 - 1px); bottom: calc(var(--nav-h) / -2); }
+#right-spacer::after { right: calc(var(--gutter) / 2 - 1px); bottom: calc(var(--nav-h) / -2); }
 
+#panel2::before,
+#panel2::after {
+  z-index: 1;                           /* keeps the lower arm above the footer's background */
+  bottom: calc(var(--nav-h) / -2 - 1px);
+}
+#panel2::before { left:  calc(var(--gutter) / -2 - 1px); }
+#panel2::after  { right: calc(var(--gutter) / -2 - 1px); }
+
+#description::after {
+  left:   calc(var(--gutter) / -2 - 1px);
+  bottom: calc(var(--nav-h) / -2 - 1px);
+}
+
+
+/* =====================================================================
+   PANELS
+   ===================================================================== */
 .panel {
   position: relative;
   background: var(--background);
   border: var(--line);
   /* 1px less than the gutter so the panel border sits exactly on the spacer border */
-  margin-left: calc(var(--gutter) - 1px);
-  margin-right: calc(var(--gutter) - 1px);
+  margin-left:  max(0px, calc(var(--gutter) - 1px));
+  margin-right: max(0px, calc(var(--gutter) - 1px));
   min-height: calc(100vh - var(--nav-h));
   scroll-margin-top: var(--nav-h);
-}
-
-
-#panel1 {
-    border-top: none;
-    --xh: 120px;       /* length of each line */
-    --spins: 2;        /* number of full rotations on load */
-    --iri: #f2a7c9,          /* pink */
-        #f7bcd8 14%,      /* light pink */
-        #d4b0f5 30%,      /* lavender */
-        #b9a4f2 44%,      /* light violet */
-        #a9c3f7 58%,      /* soft blue */
-        #c9b3f5 72%,      /* lilac */
-        #f4b0d6 86%,      /* pink */
-        #f2a7c9;          /* same as the first stop, so the loop is seamless */
-}
-
-#panel1::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  margin: auto;
-  width: calc(var(--xh) + 1px);
-  height: calc(var(--xh) + 1px);
-  pointer-events: none;
-  background:
-    linear-gradient(var(--color), var(--color)) center / 1px 100% no-repeat,   /* vertical line */
-    linear-gradient(var(--color), var(--color)) center / 100% 1px no-repeat;   /* horizontal line */
-  animation: xh-spin 2.4s cubic-bezier(.65, 0, .35, 1) .3s;
-}
-
-#panel2::before,
-#panel2::after {
-  content: '';
-  position: absolute;
-  z-index: 1;                                /* keeps the lower arm above the footer's background */
-  bottom: calc(var(--nav-h) / -2 - 1px);     /* lower arm sticks out 50% of the navbar height */
-  width: calc(var(--gutter) + 1px);          /* +1px so there's a true centre pixel for the 1px lines */
-  height: calc(var(--nav-h) + 1px);
-  pointer-events: none;
-  background:
-    linear-gradient(var(--color), var(--color)) center / 1px 100% no-repeat,   /* vertical arm */
-    linear-gradient(var(--color), var(--color)) center / 100% 1px no-repeat;   /* horizontal arm */
-}
-
-#panel2::before { left:  calc(var(--gutter) / -2 - 1px); }
-#panel2::after  { right: calc(var(--gutter) / -2 - 1px); }
-
-@keyframes xh-spin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(calc(var(--spins) * 360deg)); }
-}
-
-/* only for reduced motion users */
-@media (prefers-reduced-motion: reduce) {
-  #panel1::before { animation: none; }
-  #name > :nth-child(1) { animation: none; }
-}
-
-
-
-#panel2 {
-  height: calc(100vh - var(--nav-h));
 }
 
 .panel + .panel {
   margin-top: -1px;
 }
 
-#hero {
-    position: relative;
-    width: 100%;
-    height: calc(100vh - var(--nav-h) - 40px);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+
+/* =====================================================================
+   PANEL 1 (hero)
+   ===================================================================== */
+#panel1 {
+  border-top: none;
+  --xh: 120px;                          /* length of each cross line */
+  --iri: #f2a7c9,                       /* pink */
+      #f7bcd8 14%,                      /* light pink */
+      #d4b0f5 30%,                      /* lavender */
+      #b9a4f2 44%,                      /* light violet */
+      #a9c3f7 58%,                      /* soft blue */
+      #c9b3f5 72%,                      /* lilac */
+      #f4b0d6 86%,                      /* pink */
+      #f2a7c9;                          /* same as the first stop, so the loop is seamless */
 }
 
-#name {
-    display: flex;
-    flex-direction: column;
-    padding-left: 30px;
-
-    /* change name and bottom gap */
-    padding-bottom: 20px;  
-    font-family: 'redaction 20', serif;
-    font-size: 200px;
-    line-height: 0.8;
+/* centre cross that spins on load (desktop only) */
+#panel1::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width:  calc(var(--xh) + 1px);
+  height: calc(var(--xh) + 1px);
+  pointer-events: none;
+  background: var(--cross);
+  animation: xh-spin 2.4s cubic-bezier(.65, 0, .35, 1) .3s;
 }
 
-#name > :nth-child(1) {
-  align-self: flex-start;      /* shrink to the word so the gradient spans just NAOKI */
-  padding: .08em .1em;         /* room so the tight line-height doesn't clip the gradient */
-  margin: -.08em -.1em;        /* cancels the padding, so the layout doesn't move */
-  font-family: 'redaction 20';
-  letter-spacing: -5px;
-  color: #000000;              /* fallback */
-  background:
-    linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, .55) 50%, transparent 65%)
-      0 0 / 250% 100% no-repeat,                                  /* moving sheen */
-    linear-gradient(100deg, var(--iri)) 0 0 / 200% 100% repeat-x; /* iridescent base */
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: iridescent 10s linear infinite;
+/* "Projects" label, bottom right */
+#panel1::after {
+  content: 'Projects';
+  position: absolute;
+  right: 30px;
+  bottom: 24px;
+  font-family: 'Redaction', serif;
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -1px;
+  pointer-events: none;
 }
 
-#name > :nth-child(2) {
-  align-self: flex-start;      /* shrink to the word so the gradient spans just NAOKI */
-  padding: .25em .1em;
-  margin: -.25em -.1em;
-  font-family: 'redaction 20';
-  letter-spacing: -5px;
-  color: #000000;              /* fallback */
-  background:
-    linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, .55) 50%, transparent 65%)
-      0 0 / 250% 100% no-repeat,                                  /* moving sheen */
-    linear-gradient(100deg, var(--iri)) 0 0 / 200% 100% repeat-x; /* iridescent base */
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: iridescent 10s linear infinite;
+@keyframes xh-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(calc(var(--spins) * 360deg)); }
+}
+
+@keyframes xh-fade {
+  from { opacity: 1; }
+  to   { opacity: 0; }
 }
 
 @keyframes iridescent {
@@ -361,6 +392,45 @@ h1, h2, h3, h4, h5, h6 {
   to   { background-position: -50% 0, 200% 0; }
 }
 
+#hero {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - var(--nav-h) - 40px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+#name {
+  display: flex;
+  flex-direction: column;
+  padding-left: 30px;
+  padding-bottom: 20px;                 /* gap under the name */
+  font-family: 'redaction 20', serif;
+  font-size: 200px;
+  line-height: 0.8;
+}
+
+/* both name lines share the iridescent text effect */
+#name > :nth-child(1),
+#name > :nth-child(2) {
+  align-self: flex-start;               /* shrink to the word so the gradient spans just that word */
+  letter-spacing: -5px;
+  color: #000000;                       /* fallback */
+  background:
+    linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, .55) 50%, transparent 65%)
+      0 0 / 250% 100% no-repeat,                                  /* moving sheen */
+    linear-gradient(100deg, var(--iri)) 0 0 / 200% 100% repeat-x; /* iridescent base */
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: iridescent 10s linear infinite;
+}
+
+/* padding gives room so the tight line-height doesn't clip the gradient;
+   the matching negative margin cancels it so the layout doesn't move */
+#name > :nth-child(1) { padding: .08em .1em; margin: -.08em -.1em; }
+#name > :nth-child(2) { padding: .25em .1em; margin: -.25em -.1em; }
 
 #description {
   position: absolute;
@@ -376,26 +446,22 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -1px;
 }
 
-#description::after {
-  content: '';
-  position: absolute;
-  left:   calc(var(--gutter) / -2 - 1px);    /* -1px because offsets are measured inside the border */
-  bottom: calc(var(--nav-h) / -2 - 1px);
-  width:  calc(var(--gutter) + 1px);         /* +1px so there's a true centre pixel for the 1px lines */
-  height: calc(var(--nav-h) + 1px);
-  pointer-events: none;
-  background:
-    linear-gradient(var(--color), var(--color)) center / 1px 100% no-repeat,   /* vertical arm */
-    linear-gradient(var(--color), var(--color)) center / 100% 1px no-repeat;   /* horizontal arm */
+
+/* =====================================================================
+   PANEL 2 (projects grid)
+   ===================================================================== */
+#panel2 {
+  height: calc(100vh - var(--nav-h));
 }
 
 #projects {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-template-rows: repeat(2, minmax(0, 1fr));
-    width: 100%;
-    height: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  width: 100%;
+  height: 100%;
 }
+
 .project {
   position: relative;
   display: block;
@@ -403,22 +469,12 @@ h1, h2, h3, h4, h5, h6 {
   min-height: 0;
   color: var(--color);
   text-decoration: none;
+  border-right: 1px solid var(--color);
+  border-bottom: 1px solid var(--color);
 }
 
-.project {
-    border-right: 1px solid var(--color);
-    border-bottom: 1px solid var(--color);
-}
-
-/* No right border on cards 3 and 6 */
-.project:nth-child(3n) {
-    border-right: none;
-}
-
-/* No bottom border on cards 4, 5 and 6 */
-.project:nth-child(n+4) {
-    border-bottom: none;
-}
+.project:nth-child(3n)   { border-right: none; }    /* no right border on cards 3 and 6 */
+.project:nth-child(n+4)  { border-bottom: none; }   /* no bottom border on cards 4, 5 and 6 */
 
 .thumb {
   position: absolute;
@@ -426,27 +482,25 @@ h1, h2, h3, h4, h5, h6 {
   overflow: hidden;            /* clip here, not on .project, so the connector lines survive */
   background-size: cover;
   background-position: center;
-  filter: blur(1px) brightness(90%);
   transition: filter .4s, transform .6s;
 }
 
 .caption {
   position: absolute;
-  inset: 0;                       /* covers the whole card */
+  inset: 0;                    /* covers the whole card */
   display: flex;
   flex-direction: column;
-  background: var(--background);
-  color: var(--color);
+  background: white;
+  color: black;
   font-family: 'Typo Mono', monospace;
   font-size: 16px;
   line-height: 1.55;
   padding: 20px;
   opacity: 0;
-  visibility: hidden;             /* fully hidden until hover: can't be clicked, focused or scrolled */
+  visibility: hidden;          /* fully hidden until hover: can't be clicked, focused or scrolled */
   transition: opacity .25s, visibility 0s .25s;
 }
 
-/* make caption visible */
 .project:hover .caption,
 .project:focus-visible .caption {
   opacity: 1;
@@ -460,37 +514,56 @@ h1, h2, h3, h4, h5, h6 {
   transition: visibility 0s .25s;   /* waits for the caption to finish fading in */
 }
 
+.caption-title {
+  flex: none;
+  display: block;
+  padding: 0 12px;
+  font-size: 18px;
+  line-height: 1.3;
+}
+
 .caption-description {
   flex: 1;
-  min-height: 0;                    /* required, or long text grows past the card instead of scrolling */
+  min-height: 0;               /* required, or long text grows past the card instead of scrolling */
   overflow-y: auto;
-  /* overscroll-behavior: contain;     scrolling the text doesn't scroll the page behind it */
   padding: 12px 12px 24px;
-  scrollbar-width: none;            /* hide the scrollbar (Firefox) */
+  scrollbar-width: none;       /* hide the scrollbar (Firefox) */
   /* soft fade at the bottom hints that there's more to read */
   -webkit-mask-image: linear-gradient(to bottom, black calc(100% - 24px), transparent);
   mask-image: linear-gradient(to bottom, black calc(100% - 24px), transparent);
 }
 .caption-description::-webkit-scrollbar { display: none; }   /* hide the scrollbar (Chrome/Safari) */
-.caption-description p { margin: 0 0 1em; }
 
+/* works for <ul><li> or <p> descriptions */
+ul.caption-description {
+  margin: 0;
+  padding-left: 32px;          /* room for the bullets */
+  list-style: disc;
+}
+.caption-description li,
+.caption-description p {
+  margin: 0 0 .8em;
+}
+
+
+/* =====================================================================
+   FOOTER
+   ===================================================================== */
 footer {
-    position: relative;
-    width: 100%;
-    background: var(--background);
-    text-align: center;
-    font-family: 'Typo mono', monospace;
-    font-weight: 500;
-    font-size: 17px;
-    padding-top: 5px;
-}
-
-.normal-font {
-    font-family: sans-serif;
-    letter-spacing: normal;
+  position: relative;
+  width: 100%;
+  background: var(--background);
+  text-align: center;
+  font-family: 'Typo Mono', monospace;
+  font-weight: 500;
+  font-size: 17px;
+  padding-top: 5px;
 }
 
 
+/* =====================================================================
+   CUSTOM CURSOR
+   ===================================================================== */
 html.has-cursor,
 html.has-cursor * {
   cursor: none !important;
@@ -500,13 +573,13 @@ html.has-cursor * {
   position: fixed;
   left: 0;
   top: 0;
-  width: 20px;               /* crosshair size */
+  width: 20px;                 /* crosshair size */
   height: 20px;
-  margin: -10px 0 0 -10px;   /* half the size, so the centre sits on the pointer */
+  margin: -10px 0 0 -10px;     /* half the size, so the centre sits on the pointer */
   pointer-events: none;
   z-index: 3000;
   opacity: 0;
-  mix-blend-mode: difference; /* stays visible over both white and images */
+  mix-blend-mode: difference;  /* stays visible over both white and images */
   transition: opacity .2s;
 }
 
@@ -517,18 +590,210 @@ html.has-cursor * {
   background: white;
 }
 
-#cursor::before {
-    left: 50%;
-    top: 0;
-    width: 1px;
-    height: 100%;
-    transform: translateX(-50%);
+#cursor::before { left: 50%; top: 0;  width: 1px;  height: 100%; transform: translateX(-50%); }
+#cursor::after  { top: 50%;  left: 0; height: 1px; width: 100%;  transform: translateY(-50%); }
+
+
+/* =====================================================================
+   MOBILE
+   ===================================================================== */
+@media (max-width: 768px) {
+  :root {
+    --nav-h: 56px;
+    --gutter: 0px;                      /* no gutters (navbar line + panel margins follow via max()) */
+  }
+
+  /* gutters and every corner arm are gone */
+  .spacer,
+  #panel2::before,
+  #panel2::after,
+  #description::after {
+    display: none;
+  }
+
+  /* ---------- navbar: burger left, title centred, cross right ---------- */
+  #social-icons   { order: -2; justify-content: flex-start; padding: 0 10px; gap: 0; }
+  #center-content { order: 0; padding: 0 8px; font-size: 22px; letter-spacing: -.5px; }
+  #location       { order: 1; padding: 0; font-size: 0; }   /* empty filler so the title is truly centred */
+
+  /* spinning cross at the right of the navbar, fades out when it has finished */
+  #navbar::before {
+    content: '';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    width: 29px;                        /* 28px cross + 1px so the lines have a true centre pixel */
+    height: 29px;
+    margin-top: -14.5px;                /* margin (not transform) because the spin uses transform */
+    pointer-events: none;
+    background: var(--cross);
+    animation:
+      xh-spin 2.4s cubic-bezier(.65, 0, .35, 1) .3s,
+      xh-fade .5s ease 2.7s forwards;   /* fade starts when the spin ends: .3s + 2.4s */
+  }
+
+  /* burger: three bars, turns into an X when open */
+  #menu-toggle {
+    display: block;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: 0;
+    background:
+      linear-gradient(var(--color), var(--color)) center 11px / 22px 1px no-repeat,
+      linear-gradient(var(--color), var(--color)) center 18px / 22px 1px no-repeat,
+      linear-gradient(var(--color), var(--color)) center 25px / 22px 1px no-repeat;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  #menu-toggle[aria-expanded="true"] {
+    background:
+      linear-gradient(45deg,  transparent calc(50% - .5px), var(--color) calc(50% - .5px), var(--color) calc(50% + .5px), transparent calc(50% + .5px)) center / 22px 22px no-repeat,
+      linear-gradient(-45deg, transparent calc(50% - .5px), var(--color) calc(50% - .5px), var(--color) calc(50% + .5px), transparent calc(50% + .5px)) center / 22px 22px no-repeat;
+  }
+
+  /* dropdown: hangs below the navbar, full width */
+  #menu {
+    display: none;
+    position: absolute;                 /* #navbar is sticky, so this anchors to it */
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 20px;
+    background: var(--background);
+    border-bottom: var(--line);
+  }
+
+  #menu-toggle[aria-expanded="true"] ~ #menu { display: flex; }
+
+  /* social links in the menu: plain rows, label always visible, no hover pill.
+     (#id selectors outrank the hover rules, so :hover variants aren't needed) */
+  #social-icons #menu .social {
+    width: 100%;
+    padding: 0;
+    border-color: transparent;
+    background: transparent;
+    color: var(--color);
+  }
+
+  #social-icons #menu .social img {
+    width: 22px;
+    height: 22px;
+    filter: none;
+  }
+
+  #social-icons #menu .social span {
+    max-width: none;
+    margin-left: 12px;
+    opacity: 1;
+  }
+
+  #cvbutton { align-self: flex-start; }
+
+  /* ---------- panels: edge to edge, no side borders ---------- */
+  .panel {
+    border-left: none;
+    border-right: none;
+  }
+
+  /* ---------- panel 1: name, description, "Projects" label ---------- */
+  #panel1 {
+    --pad: 16px;                        /* left/right padding for the name and the description */
+    --name-top: 24px;                   /* space above the name */
+    --name-bottom: 18px;                /* space between the name and the description */
+    --desc-left: 22px;                  /* left padding of the description */
+    --desc-bottom: 12px;                /* space between the description and the "Projects" label */
+    display: flex;
+    flex-direction: column;
+    min-height: 0;                      /* height comes from the content */
+  }
+
+  #panel1::before { display: none; }    /* the cross lives in the navbar on mobile */
+
+  #hero {
+    flex: none;
+    height: auto;
+    justify-content: flex-start;
+  }
+
+  /* name: fills the width (fit-name.js fine-tunes the size so it fits exactly) */
+  #name {
+    order: 1;
+    flex: none;
+    width: 100%;
+    padding: var(--name-top) var(--pad) var(--name-bottom);
+    font-size: 19vw;                    /* fallback before the script runs */
+  }
+
+  #name > :nth-child(1),
+  #name > :nth-child(2) {
+    letter-spacing: -2px;
+    white-space: nowrap;
+  }
+
+  #description {
+    order: 2;
+    position: static;
+    flex: none;
+    width: 100%;
+    padding: 0 var(--pad) var(--desc-bottom) var(--desc-left);
+    border: none;
+    font-size: 20px;
+    line-height: 1.2;
+    letter-spacing: -.5px;
+  }
+
+  /* "Projects" label sits right under the description, on the right */
+  #panel1::after {
+    position: static;
+    order: 3;
+    flex: none;
+    align-self: flex-end;
+    margin: 0 var(--pad) 20px 0;
+    font-size: 24px;
+  }
+
+  /* ---------- panel 2: 6 cells stacked in one column ---------- */
+  #panel2 { height: auto; }
+
+  #projects {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: repeat(6, minmax(240px, 75vw));
+    height: auto;
+  }
+
+  .project,
+  .project:nth-child(3n),
+  .project:nth-child(n+4) {
+    border-right: none;
+    border-bottom: var(--line);
+  }
+
+  .project:last-child { border-bottom: none; }   /* panel2's own bottom border is the footer's top line */
+
+  /* ---------- footer: one line, scales with the screen ---------- */
+  footer {
+    font-size: 2.8vw;
+    white-space: nowrap;
+    padding-left: 8px;
+    padding-right: 8px;
+    overflow: hidden;
+  }
 }
 
-#cursor::after {
-    top: 50%;
-    left: 0;
-    height: 1px;
-    width: 100%;
-    transform: translateY(-50%);
+
+/* =====================================================================
+   REDUCED MOTION (keep this LAST so it beats the animations above)
+   ===================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  #panel1::before,
+  #navbar::before,
+  #name > :nth-child(1),
+  #name > :nth-child(2) {
+    animation: none;
+  }
 }
