@@ -216,23 +216,39 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 1;
 }
 
-/* --- project card version: always a full pill --- */
-.caption .social {
+.caption-links {
   flex: none;
+  display: flex;
+  flex-wrap: wrap;
   align-self: flex-start;
   gap: 8px;
   margin: 0 12px;
+}
+
+.caption > .social {
+  align-self: flex-start;
+  margin: 0 12px;
+}
+
+/* --- project card version: always a full pill --- */
+.caption .social {
+  flex: none;
+  gap: 8px;
   padding: 0 16px 0 12px;
   border: 1px solid black;
   background: black;
   color: white;
 }
 
-
 .caption .social img {
   width: 20px;
   height: 20px;
-  filter: invert(1);          /* black logo -> white */
+  filter: invert(1);
+}
+
+/* for the demo button */
+.caption .social:not(:has(img)) {
+  padding: 0 16px;
 }
 
 .caption .social:hover,
