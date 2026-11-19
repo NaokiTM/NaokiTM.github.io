@@ -379,18 +379,40 @@ h1, h2, h3, h4, h5, h6 {
   animation: xh-spin 2.4s cubic-bezier(.65, 0, .35, 1) .3s;
 }
 
-/* "Projects" label, bottom right */
-#panel1::after {
-  content: 'Projects';
+/* smooth scrolling for the "Projects" link */
+html {
+  scroll-behavior: smooth;
+}
+
+/* "Projects" label + icon, bottom right, one clickable element */
+#projects-link {
   position: absolute;
   right: 30px;
   bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color);
+  text-decoration: none;
   font-family: 'Redaction', serif;
-  font-size: 32px;
+  font-size: 38px;                      /* was 32px */
   font-weight: 800;
   line-height: 1;
   letter-spacing: -1px;
-  pointer-events: none;
+}
+
+#projects-icon {
+  flex: none;
+  width: 36px;
+  height: 36px;
+}
+
+
+#projects-icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 @keyframes xh-spin {
@@ -730,6 +752,21 @@ html.has-cursor * {
 
   #panel1::before { display: none; }    /* the cross lives in the navbar on mobile */
 
+  /* "Projects" link sits right under the description, on the right */
+  #projects-link {
+    position: static;
+    order: 3;
+    flex: none;
+    align-self: flex-end;
+    margin: 0 var(--pad) 20px 0;
+    font-size: 28px;                      /* was 24px */
+  }
+
+  #projects-icon {
+    width: 26px;
+    height: 26px;
+  }
+
   #hero {
     flex: none;
     height: auto;
@@ -761,16 +798,6 @@ html.has-cursor * {
     font-size: 20px;
     line-height: 1.2;
     letter-spacing: -.5px;
-  }
-
-  /* "Projects" label sits right under the description, on the right */
-  #panel1::after {
-    position: static;
-    order: 3;
-    flex: none;
-    align-self: flex-end;
-    margin: 0 var(--pad) 20px 0;
-    font-size: 24px;
   }
 
   /* ---------- panel 2: 6 cells stacked in one column ---------- */
@@ -811,5 +838,8 @@ html.has-cursor * {
   #name > :nth-child(1),
   #name > :nth-child(2) {
     animation: none;
+  }
+  html {
+    scroll-behavior: auto;
   }
 }

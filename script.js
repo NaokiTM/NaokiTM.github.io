@@ -4,15 +4,13 @@ let panel2 = document.getElementById('panel2');
 let panel3 = document.getElementById('panel3');
 
 window.addEventListener('scroll', () => {
-    let scrollY = window.scrollY;
+  const line = navbar.offsetHeight + 2;   // just below the navbar, 2px tolerance
+  let title = 'Naoki Miyagawa';
 
-    if (scrollY < panel1.offsetHeight) {
-        centerContent.textContent = 'Naoki Miyagawa';
-    } else if (scrollY < panel1.offsetHeight + panel2.offsetHeight) {
-        centerContent.textContent = 'Projects';
-    } else if (scrollY < panel1.offsetHeight + panel2.offsetHeight + panel3.offsetHeight) {
-        centerContent.textContent = 'Contact';
-    }
+  if (panel2.getBoundingClientRect().top <= line) title = 'Projects';
+  if (panel3 && panel3.getBoundingClientRect().top <= line) title = 'Contact';
+
+  centerContent.textContent = title;
 });
 
 
