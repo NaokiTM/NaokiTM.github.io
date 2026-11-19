@@ -73,7 +73,7 @@ typeText(document.getElementById('description'));
 
 
 
-const clock = document.getElementById('location');
+const clock = document.getElementById('clock');
 const tick = () => clock.textContent = 'Bristol, United Kingdom:  ' + new Date().toLocaleTimeString('en-GB', { timeZone: 'Europe/London' });
 tick(); setInterval(tick, 1000);
 
